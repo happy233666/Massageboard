@@ -8,7 +8,12 @@ func InitRouter() {
 	{
 		v.POST("/register", Register)
 		v.POST("/login", Login)
-		v.PUT("/ChangePassword")
+		v.PUT("/ChangePassword", ChangePassword)
+	}
+	m := r.Group("/massage")
+	{
+		m.POST("/massage")
+
 	}
 	r.Run()
 }

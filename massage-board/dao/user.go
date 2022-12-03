@@ -1,6 +1,7 @@
 package dao
 
 import (
+	"fmt"
 	"gin/main/massage-board/model"
 )
 
@@ -18,4 +19,19 @@ func Searchid(id string) (u model.User, err error) {
 	}
 	err = row.Scan(&u.Id, &u.Username, &u.Password)
 	return
+}
+func ChangeDB(id string, password string) {
+	sql := "update user set password =? where id = ?"
+	res, err := DB.Exec(sql, password, id)
+	if err != nil {
+		fmt.Println("exec failed,", err)
+		return
+	}
+	row, err := res.RowsAffected()
+	if err != nil {
+		fmt.Println("rows failed", err)
+	}
+
+	fmt.Println("update succ:", row)
+
 }

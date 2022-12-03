@@ -17,6 +17,3 @@ func InitDB() {
 	DB = database
 	fmt.Println(DB.Ping())
 }
-func ChangeDB() {
-	
-}

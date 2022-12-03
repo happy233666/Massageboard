@@ -13,3 +13,6 @@ func SearchuserByID(id string) (err error, u model.User) {
 	u, err = dao.Searchid(id)
 	return
 }
+func ChangeuserPasswordByID(id string, password string) {
+	dao.ChangeDB(id, password)
+}

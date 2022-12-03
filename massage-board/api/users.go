@@ -60,9 +60,31 @@ func Login(c *gin.Context) {
 		util.Normalerr(c, 4, "密码错误")
 		return
 	}
+	c.SetCookie("username", password, 0, "", "", false, false)
 	util.Respok(c)
 }
 func ChangePassword(c *gin.Context) {
 	id := c.PostForm("id")
 	password := c.PostForm("password")
+	err, u := service.SearchuserByID(id)
+	if id == "" || password == "" {
+		util.RespParamerror(c)
+		return
+	}
+	if err != nil {
+		if err == sql.ErrNoRows {
+			util.Normalerr(c, 3, "用户不存在")
+		} else {
+			log.Printf("search user error: %v", err)
+			util.RestpInternalErr(c)
+			return
+		}
+		return
+	}
+	if u.Password == password {
+		util.Normalerr(c, 5, "密码重复")
+		return
+	}
+	service.ChangeuserPasswordByID(id, password)
+	util.Respok(c)
 }
