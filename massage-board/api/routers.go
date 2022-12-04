@@ -1,6 +1,8 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 func InitRouter() {
 	r := gin.Default()
@@ -8,12 +10,20 @@ func InitRouter() {
 	{
 		v.POST("/register", Register)
 		v.POST("/login", Login)
-		v.PUT("/ChangePassword", ChangePassword)
+		v.PUT("/changePassword", ChangePassword)
 	}
 	m := r.Group("/massage")
 	{
-		m.POST("/massage")
+		m.POST("/massage", Sendmassage)
+		m.PUT("/massage", ChangeMassage)
+		m.DELETE("/massage", DeleteMassage)
 
+	}
+	c := r.Group("/massage")
+	{
+		c.POST("/comment", SendComment)
+		c.PUT("/comment", UpdateComment)
+		c.DELETE("/comment", DeleteComment)
 	}
 	r.Run()
 }

@@ -60,7 +60,7 @@ func Login(c *gin.Context) {
 		util.Normalerr(c, 4, "密码错误")
 		return
 	}
-	c.SetCookie("username", password, 0, "", "", false, false)
+	c.SetCookie(id, password, 0, "", "", false, false)
 	util.Respok(c)
 }
 func ChangePassword(c *gin.Context) {
